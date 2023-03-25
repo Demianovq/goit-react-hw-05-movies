@@ -9,7 +9,7 @@ export async function fetchTrending() {
   return response.data;
 }
 
-export async function fetchMovieDetails(movieId) {
+export async function fetchMovieById(movieId) {
   const response = await axios.get(
     `movie/${movieId}?api_key=${API_KEY}&language=en-US`
   );

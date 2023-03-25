@@ -8,10 +8,7 @@ export const Navigation = () => {
           <StyledLink to="/">Home</StyledLink>
         </li>
         <li>
-          <StyledLink to="events">Events</StyledLink>
-        </li>
-        <li>
-          <StyledLink to="search">Search</StyledLink>
+          <StyledLink to="/movies">Movies</StyledLink>
         </li>
       </ul>
     </nav>
