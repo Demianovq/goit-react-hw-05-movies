@@ -1,12 +1,21 @@
-import { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useEffect, useState, Suspense } from 'react';
+import { useSearchParams, useLocation } from 'react-router-dom';
 import { fetchMovieByQuery } from 'services/fetchMovieApi';
+import { Loader } from 'components/loader/loader';
+import {
+  SearchBtn,
+  Form,
+  FormInput,
+  MoviesList,
+  StyledMovieLink,
+} from './movies-searchpage.styled';
 
-export const Movies = () => {
+const Movies = () => {
   const [movies, SetAMovies] = useState([]);
   const [movieName, setAMovieName] = useState('');
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
   const query = searchParams.get('query') ?? '';
 
   useEffect(() => {
@@ -32,24 +41,29 @@ export const Movies = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input
+      <Form onSubmit={handleSubmit}>
+        <FormInput
           type="text"
           name="query"
           value={movieName}
           onChange={e => onChangeInput(e.currentTarget.value.toLowerCase())}
         />
-        <button type="submit">Search</button>
-      </form>
-      <ul>
+        <SearchBtn type="submit">Search</SearchBtn>
+      </Form>
+      <MoviesList>
         {movies.map(movie => {
           return (
             <li key={movie.id}>
-              <Link to={`${movie.id}`}>{movie.title}</Link>
+              <StyledMovieLink to={`${movie.id}`} state={{ from: location }}>
+                {movie.title}
+              </StyledMovieLink>
             </li>
           );
         })}
-      </ul>
+      </MoviesList>
+      <Suspense fallback={<Loader />} />
     </>
   );
 };
+
+export default Movies;

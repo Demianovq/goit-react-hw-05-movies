@@ -8,3 +8,9 @@ export const StyledLink = styled(NavLink)`
     color: blue;
   }
 `;
+
+export const NavList = styled('ul')`
+  list-style: none;
+  display: flex;
+  gap: 20px;
+`;
